@@ -6,7 +6,7 @@ Stack 위젯은 다양한 component들을 겹쳐서 쌓을 수 있게 도와주�
 
 해당 실습에서는 여러 Component를 넣고, 각 Component에 margin를 다르게 주어 일부만 겹치게 표현했다.
 
-
+밑의 코드 예제에서는 Stack()에 children을 넣어 [] 배열한다.
 code ex)
 
 child: Stack(
@@ -28,3 +28,5 @@ child: Stack(
               margin: const EdgeInsets.only(top: 100,left: 100),
               color: Colors.green,
             ),
+          ]
+          )
