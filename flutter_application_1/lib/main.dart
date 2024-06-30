@@ -37,38 +37,34 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text("Test Title"),
       ),
-      body: Container(
-      child: Row(
-        children: [
-          // Flexible(
-          //   flex: 2,
-          //   child: Container(
-          //     height: 150,
-          //     color: Colors.blue,
-          //   ),
-          // ),
-          // Flexible(
-          //   flex: 3,
-          //   child: Container(
-          //     height: 150,
-          //     color: Colors.green,
-          //   ),
-          // )
-          Expanded(
-            flex: 2,
-            child: Container(
-              color: Colors.green,
-            ),
-          ),Expanded(
-            flex: 2,
-            child: Container(
-              color: Colors.blue,
-            ),
-          )
-        ],
+     body: Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      decoration: BoxDecoration(
+        // gradient: LinearGradient(
+        //   colors: [
+        //     Colors.blue[100] as Color,
+        //     Colors.blue[300] as Color,
+        //     Colors.blue[500] as Color,
+        //     Colors.blue[700] as Color,
+        //   ],
+        //   begin: Alignment.topCenter,
+        //   end: Alignment.bottomCenter,
+        //   stops: const [0.1, 0.4, 0.7, 1.0],
+        // )
+        gradient: RadialGradient(
+          center: Alignment.center,
+          colors: [
+            Colors.amber[100] as Color,
+            Colors.amber[300] as Color,
+            Colors.amber[500] as Color,
+            Colors.amber[700] as Color,
+          ],
+          stops: [0.1, 0.3, 0.7, 1.0],
+          radius: 1.0
+        )
       ),
-      ),
-
+     ),
       );
   }
 }
