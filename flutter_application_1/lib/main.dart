@@ -27,22 +27,48 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  final postList = [
+    {
+      "title" : "Sample Title 1",
+      "color" : Colors.green,
+    },
+    {
+      "title" : "Sample Title 2",
+      "color" : Colors.redAccent,
+    },
+    {
+      "title" : "Sample Title 3",
+      "color" : Colors.amber,
+    },
+    {
+      "title" : "Sample Title 4",
+      "color" : Colors.purpleAccent,
+    },
+    {
+      "title" : "Sample Title 5",
+      "color" : Colors.teal,
+    },
+    {
+      "title" : "Sample Title 6",
+      "color" : Colors.blueAccent,
+    },
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Test Title"),
       ),
-      body: ListView(
-        scrollDirection: Axis.horizontal, // 기본값은 vertical !
-        children: [
-          postContainer(title:"Title 1",colorData: Colors.blue),
-          postContainer(title:"Title 2",colorData: Colors.green),
-          postContainer(title:"Title 3",colorData: Colors.pink),
-          postContainer(title:"Title 4",colorData: Colors.purple),
-          postContainer(title:"Title 5",colorData: Colors.blueGrey)
-        ]
-      ),
+      body: ListView.builder(
+        itemCount: postList.length,
+        itemBuilder: (BuildContext con, int index) {
+          return postContainer(
+            title: postList[index]["title"] as String,
+            colorData:  postList[index]["color"] as Color,
+          );
+        }
+      )
     );
   }
 
