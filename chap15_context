@@ -1,0 +1,40 @@
+chap 15. 버튼 만들기
+
+플러터에는 버튼을 만들 수 있게 해주는 위젯들이 있다. 
+
+대표적으로 ElevatedButton, TextButton, OutlinedButton 등이 있다.
+
+1. ElevatedButton
+위젯의 기본 구조를 보게 되면 아주 간단하게 style(버튼 디자인), onPressed(버튼을 눌렀을 때의 액션 구성), child(버튼 내부 위젯 생성) 등을 가진다.
+
+2. TextButton
+TextButton은 마치 HTML의 <a> 태그처럼 Text를 버튼처럼 누를 수 있게 해주는 것 같다.
+
+3. OutlinedButton
+버튼에 Outline이 생긴 것을 확인할 수 있고, shape를 통해 둥근 모서리를 적용할 수 있다.
+  
+code ex)
+Center(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.amber,
+                textStyle: const TextStyle(
+                  fontSize: 20,
+                )
+              ),
+              onPressed: () => print("Elevated Button") ,
+              child: const Text("Elevated Button"),
+            ),
+          ),
+          Center(
+            child: TextButton(
+               onPressed: () => print("Text Button"),
+               child: const Text("Text Button"),
+            ),
+          ),
+          Center(
+            child: OutlinedButton(
+               onPressed: () => print("Outlined Button"),
+               child: Text("Outlined Button"),
+            ),
+          )
