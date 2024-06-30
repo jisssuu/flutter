@@ -38,33 +38,35 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text("Test Title"),
       ),
      body: Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
-        // gradient: LinearGradient(
-        //   colors: [
-        //     Colors.blue[100] as Color,
-        //     Colors.blue[300] as Color,
-        //     Colors.blue[500] as Color,
-        //     Colors.blue[700] as Color,
-        //   ],
-        //   begin: Alignment.topCenter,
-        //   end: Alignment.bottomCenter,
-        //   stops: const [0.1, 0.4, 0.7, 1.0],
-        // )
-        gradient: RadialGradient(
-          center: Alignment.center,
-          colors: [
-            Colors.amber[100] as Color,
-            Colors.amber[300] as Color,
-            Colors.amber[500] as Color,
-            Colors.amber[700] as Color,
-          ],
-          stops: [0.1, 0.3, 0.7, 1.0],
-          radius: 1.0
-        )
+      child: Column(
+        children: [
+          Center(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.amber,
+                textStyle: const TextStyle(
+                  fontSize: 20,
+                )
+              ),
+              onPressed: () => print("Elevated Button") ,
+              child: const Text("Elevated Button"),
+            ),
+          ),
+          Center(
+            child: TextButton(
+               onPressed: () => print("Text Button"),
+               child: const Text("Text Button"),
+            ),
+          ),
+          Center(
+            child: OutlinedButton(
+               onPressed: () => print("Outlined Button"),
+               child: Text("Outlined Button"),
+            ),
+          )
+        ],
       ),
-     ),
-      );
+     )
+    );
   }
 }
