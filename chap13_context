@@ -1,0 +1,23 @@
+chap 13. Flexible,Expanded를 사용하여 반응형으로 만들기
+
+Flexible과 Expanded는 반응형으로 만들 때, 즉 가능한 공간을 채울 때 사용하게 되는 위젯들이다.
+
+우리는 앞서 코딩을 할때, width와 height를 각각 숫자를 대입하여 진행했던 경우가 많다.
+하지만 이는 핸드폰 기기의 크기에 전혀 신경쓰지 않는 방법이므로, 좋은 방법이 아니다.
+예를 들어 iphone 13 pro와 iphone 13 mini를 비교해보면, 핸드폰의 크기가 다르다. 하지만 우리가 숫자를 대입하여 크기를 넣을 경우, 
+13 pro에서는 모두 보이는 것이, 13 mini에서는 보이지 않을 수도 있다. 
+따라서 우리는 2가지의 방법을 사용하게 되는데, 한가지는 MediaQuery.of(context).size를 설정하는 방식과 Flexible,Expanded를 사용하는 방식이다.
+  
+1. Flexible
+
+Flexibledms flex 속성과 fit 속성을 이용하여 결정한다. flex는 쉽게 말해 비율이라 생각하면 된다.
+
+예를 들어 Container 2개가 있는데 각각 flex가 1,2 라고 하자.
+이 둘의 비율은 1 : 2가 되어 그에 맞는 크기가 결정된다.
+
+2. Expanded
+
+Expanded는 Flexible 위젯을 더욱 간소화한 위젯이다.
+따라서 flex 속성만 결정하면 된다. fit 속성은 기본값으로 FlexFit.Tight값이 적용된다.
+
+Flutter에서 UI 반응형으로 만들 때 반드시 알고 있어야 하는 위젯들이기에 꼭 이해하기 !
