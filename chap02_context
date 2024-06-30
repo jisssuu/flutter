@@ -1,1 +1,33 @@
 chap 02. Column, Row 테이블 구성
+
+Container 위젯
+
+Container 위젯은 HTML의 div 태그 용도처럼 광범위하게 쓰인다.
+
+속성은 margin, border, padding, child(content) 등을 가진다.
+
+Row 위젯
+
+Row 위젯은 한 행에 여러가지 열의 위젯들을 배치할 때 사용한다.
+
+children 속성에 배열 형태로 위젯들을 지정 가능
+
+여러가지 속성 중 많이 쓰이는 것으로는 mainAxisAlignment이다.
+
+row 메인축의 정렬을 지정할 수 있어서, start(시작 정렬), end(끝 정렬), spaceAround(맨앞과 맨뒤를 포함하여 동일한 공간을 주는 정렬),
+spaceBetween(요소 사이에만 동일한 공간을 주는 정렬),spaceEvenly(모든 부분에 동일한 공간을 주는 정렬)등이 있다.
+
+Column 위젯
+
+Row 위젯이 가로행에 여러 열을 배치하는 것이였다면, Column 위젯은 한 열에 여러 행을 배치하는 목적으로 쓰인다.
+가로 행을 정렬하기 위해 crossAxisAlignment를 사용한다.
+
+mainAxisAlignment와 CrossAxisAlignment의 차이
+
+이 둘은 서로 Row와 Column에서 반대로 쓰인다.
+
+Row에서는 MainAxis = 가로 행, CrossAxis = 세로 열
+
+Column에서는 MainAxis = 세로 열, CrossAxis = 가로 행
+
+중요하니 계속 공부하며 인지하기!
