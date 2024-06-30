@@ -1,0 +1,23 @@
+chap 12. 이미지 보여주기 (외부 url을 통해)
+
+Image를 보여주는 방법은 대표적으로 2가지이다.
+
+1. Asset을 이용한 방법
+
+AssetImage의 사용방법은 다음과 같다.
+
+1) 이미지 파일을 준비하여, assets/data/images 파일 안에 넣어준다.
+
+2) pubspec.yaml 파일이 있는데 assets: 부분에 경로를 추가해준다. 
+
+3) 코드를 작성하여 진행한다.
+
+2. url을 이용한 방법
+
+1) 웹에 올려진 이미지 url을 복사하여 가져온다.
+
+2) 변수에 복사한 url를 저장하여 NetworkImage(url)을 하여 이미지를 불러온다.
+
+강의를 진행한 totally님의 블로그에 속성에 대한 정리가 있어 url을 남기니, url을 통해 들어가서 한번도 확인하자
+
+https://totally-developer.tistory.com/23
