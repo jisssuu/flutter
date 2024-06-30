@@ -30,8 +30,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   
-  String url = 'https://flexible.img.hani.co.kr/flexible/normal/800/320/imgdb/original/2020/0302/20200302503959.jpg';
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,13 +38,35 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text("Test Title"),
       ),
       body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Image(
-          fit: BoxFit.contain,
-          image: NetworkImage(
-            url),
-        ),
+      child: Row(
+        children: [
+          // Flexible(
+          //   flex: 2,
+          //   child: Container(
+          //     height: 150,
+          //     color: Colors.blue,
+          //   ),
+          // ),
+          // Flexible(
+          //   flex: 3,
+          //   child: Container(
+          //     height: 150,
+          //     color: Colors.green,
+          //   ),
+          // )
+          Expanded(
+            flex: 2,
+            child: Container(
+              color: Colors.green,
+            ),
+          ),Expanded(
+            flex: 2,
+            child: Container(
+              color: Colors.blue,
+            ),
+          )
+        ],
+      ),
       ),
 
       );
