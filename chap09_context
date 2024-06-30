@@ -1,0 +1,33 @@
+chap 09. 스크롤 기능 구현
+
+앞서 배워본 ListView와 GridView는 스크롤 기능을 자동으로 추가해준다.
+
+하지만 이 두가지 위젯을 사용하지 않고 출력 범위를 초과하여 사용하게 되면 오류가 발생하게 되는데, 이때 스크롤 기능을 추가하여 에러 발생을 막을 수 있다.
+
+바로 SingleChildScrollView이다.
+
+해당 기능을 사용하게 되면 출력 범위가 초과하게 되더라도 오류가 발생하지 않고 스크롤을 통해 확인이 가능하다.
+
+code ex)
+
+body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 300,
+              color: Colors.green,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 300,
+              color: Colors.red,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 300,
+              color: Colors.yellow,
+            ),
+          ],
+        ),
+      )
