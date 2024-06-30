@@ -6,3 +6,17 @@ GestureDetector 위젯은 제스쳐를 감지하는 기능을 가진 위젯이�
 
 많이 사용하는 속성은 onTap이다.
 
+밑의 코드 예제에서는 인식 범위를 Tap하게 되면 print가 되는 코드다.
+
+code ex)
+
+ body: Center(
+          child: GestureDetector(
+            onTap: () => print("GestuerDetector used."),
+            child: Container(
+              width: 200,
+              height: 200,
+              color:  Colors.yellow,
+            ),
+          ),
+      )
