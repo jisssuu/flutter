@@ -1,0 +1,42 @@
+chap 08. GridView 효율적으로 사용하기
+
+GridView도 ListView에서 builder를 사용하여 효율적으로 코드를 구성하는 것처럼 GridView도 builder를 이용하여 효율적으로 구성 가능
+
+ListView.builder에서 진행했던 대로 JSON 형식으로 만들고
+
+builder를 적용한다.
+
+code ex)
+final postList = [
+    {
+      "number" : "0",
+      "color" : Colors.amber,
+    },
+    {
+      "number" : "1",
+      "color" : Colors.black,
+    },
+    {
+      "number" : "2",
+      "color" : Colors.blue,
+    },
+    {
+      "number" : "3",
+      "color" : Colors.purple,
+    },
+
+body: GridView.builder(gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 15.0,
+        mainAxisSpacing: 12.0,
+      ),
+      itemCount: postList.length,
+       itemBuilder: (BuildContext con, int index) {
+        return postContainer(
+          number: postList[index]["number"] as String,
+          colorData: postList[index]["color"] as Color,
+        );
+       },
+    )
+
+GridView.builder를 위해서 필요한 것은 gridDelegate + itemCount + itemBuilder이며 이미 데이터가 있는 리스트(위 예제에선 postList)가 필요하다.
