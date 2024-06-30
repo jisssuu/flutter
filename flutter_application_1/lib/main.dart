@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(const MyApp());
@@ -69,27 +70,114 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text("Test Title"),
       ),
-      body: SingleChildScrollView(
-        child: Column(
+       body: Container(
+        child: Stack(
           children: [
+
             Container(
               width: MediaQuery.of(context).size.width,
-              height: 300,
-              color: Colors.green,
+              height: MediaQuery.of(context).size.height,
+              color:Colors.black26,
             ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 300,
-              color: Colors.red,
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 150,
+                color: Colors.brown,
+              ),
             ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 300,
-              color: Colors.yellow,
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Container(
+                margin: EdgeInsets.only(left: 40,bottom: 150),
+                width: 100,
+                height: 100,
+                color: Colors.yellow,
+              ),
             ),
+            Align(
+              alignment: Alignment.center,
+              child: Container(
+                margin: EdgeInsets.only(bottom: 200),
+                width: 300,
+                height: 70,
+                color: Colors.blue,
+              ),
+            )
+            // Align(
+            //   alignment: Alignment.topLeft,
+            //   child: Container(
+            //     width: 100,
+            //     height: 100,
+            //     color: Colors.amber,
+            //   ),
+            // ),
+            // Align(
+            //   alignment: Alignment.topCenter,
+            //   child: Container(
+            //     width: 100,
+            //     height: 100,
+            //     color: Colors.blue,
+            //   ),
+            // ),
+            // Align(
+            //   alignment: Alignment.topRight,
+            //   child: Container(
+            //     width: 100,
+            //     height: 100,
+            //     color: Colors.green,
+            //   ),
+            // ),Align(
+            //   alignment: Alignment.centerLeft,
+            //   child: Container(
+            //     width: 100,
+            //     height: 100,
+            //     color: Colors.amber,
+            //   ),
+            // ),
+            // Align(
+            //   alignment: Alignment.center,
+            //   child: Container(
+            //     width: 100,
+            //     height: 100,
+            //     color: Colors.blue,
+            //   ),
+            // ),
+            // Align(
+            //   alignment: Alignment.centerRight,
+            //   child: Container(
+            //     width: 100,
+            //     height: 100,
+            //     color: Colors.green,
+            //   ),
+            // ),Align(
+            //   alignment: Alignment.bottomLeft,
+            //   child: Container(
+            //     width: 100,
+            //     height: 100,
+            //     color: Colors.amber,
+            //   ),
+            // ),
+            // Align(
+            //   alignment: Alignment.bottomCenter,
+            //   child: Container(
+            //     width: 100,
+            //     height: 100,
+            //     color: Colors.blue,
+            //   ),
+            // ),
+            // Align(
+            //   alignment: Alignment.bottomRight,
+            //   child: Container(
+            //     width: 100,
+            //     height: 100,
+            //     color: Colors.green,
+            //   ),
+            // )
           ],
         ),
-      )
+       ),
     );
   }
 
