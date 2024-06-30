@@ -29,40 +29,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final postList = [
-    {
-      "number": "0",
-      "color": Colors.amber,
-    },
-    {
-      "number": "1",
-      "color": Colors.black,
-    },
-    {
-      "number": "2",
-      "color": Colors.blue,
-    },
-    {
-      "number": "3",
-      "color": Colors.purple,
-    },
-    {
-      "number": "4",
-      "color": Colors.pink,
-    },
-    {
-      "number": "5",
-      "color": Colors.grey,
-    },
-    {
-      "number": "6",
-      "color": Colors.brown,
-    },
-    {
-      "number": "7",
-      "color": Colors.lightGreen,
-    }
-  ];
+  
+  String url = 'https://flexible.img.hani.co.kr/flexible/normal/800/320/imgdb/original/2020/0302/20200302503959.jpg';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,30 +39,15 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text("Test Title"),
       ),
       body: Container(
-        child: Center(
-          child: TextButton(
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext con) {
-                    return AlertDialog(
-                      title: const Text("Dialog Title"),
-                      content: Container(
-                        child: const Text("Dialog Content"),
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: const Text("Close"),
-                        )
-                      ],
-                    );
-                  });
-            },
-            child: Text("Button"),
-          ),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Image(
+          fit: BoxFit.contain,
+          image: NetworkImage(
+            url),
         ),
       ),
-    );
+
+      );
   }
 }
