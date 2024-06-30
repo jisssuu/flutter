@@ -1,2 +1,28 @@
 Chap 01. Hello World 출력 및 Scaffold 뼈대 구성
 
+기본적인 앱에서 디자인적인 뼈대를 구성하는 위젯이 바로 Scaffold이다.
+
+기본적인 material design의 시각적인 레이아웃 구조를 실행한다. 
+
+material design은 구글에서 자주쓰는 디자인 양식이나 아이콘을 칭한다.
+
+MaterialApp 위젯과 Scaffold 위젯에 대해 알아두는 편이 좋다.
+
+MaterialApp은 앱으로써 기능을 할 수 있도록 해주는 뼈대.
+Scaffold는 구성된 앱에서 디자인적인 부분에서의 뼈대.
+
+code ex)
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('This is AppBar title'),
+        ),
+        body: Text('This is body Text'),
+      ),
+    );
+  }
+}
