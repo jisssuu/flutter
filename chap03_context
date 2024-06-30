@@ -5,3 +5,26 @@ Stack 위젯은 다양한 component들을 겹쳐서 쌓을 수 있게 도와주�
 기본 형태는 Stack[] 이다.
 
 해당 실습에서는 여러 Component를 넣고, 각 Component에 margin를 다르게 주어 일부만 겹치게 표현했다.
+
+
+code ex)
+
+child: Stack(
+          children: [
+            Container(
+              width: 200,
+              height: 200,
+              color: Colors.blue,
+            ),
+            Container(
+              width: 200,
+              height: 200,
+              margin: const EdgeInsets.only(top: 50,left: 50),
+              color: Colors.red,
+            ),
+            Container(
+              width: 200,
+              height: 200,
+              margin: const EdgeInsets.only(top: 100,left: 100),
+              color: Colors.green,
+            ),
