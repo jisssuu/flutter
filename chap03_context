@@ -1,1 +1,7 @@
 chap 03. Stack을 사용하여 여러 위젯 중첩하기
+
+Stack 위젯은 다양한 component들을 겹쳐서 쌓을 수 있게 도와주는 위젯
+
+기본 형태는 Stack[] 이다.
+
+해당 실습에서는 여러 Component를 넣고, 각 Component에 margin를 다르게 주어 일부만 겹치게 표현했다.
