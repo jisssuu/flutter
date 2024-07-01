@@ -1,0 +1,23 @@
+chap 16. 다른 화면으로 이동(페이지 이동 - Navigator 사용)
+
+Navigator은 화면을 이동하고 전환할 때 사용된다.
+Stack 구조를 통하여 구현되며, push와 pop을 이용해 다음 화면으로 이동하거나, 이전 화면으로 이동할 수 있다.
+
+1. push
+
+Navigator.push 메소드를 이용하여 다음 화면으로 전환할 수 있다.
+Navigator.push(context,MaterialPageRoute(builder:(_) => 다음화면클래스이름()))으로 사용이 가능하다.
+
+2. pop
+
+Navigator.pop 메소드를 이용하여 이전 화면으로 전환할 수 있다.
+Navigator.pop(context)만 사용하면 된다.
+
+3. popUntil
+
+pop은 이전 화면으로만 전환이 가능하다. 예를 들어 스크린1,스크린2,스크린3,스크린4가 있다고 가정하자.
+현재 위치는 스크린4이다. 이 상황에서 pop을 하게 되면 화면은 스크린3으로 이동하게 된다.
+하지만 popUntil을 사용하게 된다면 스크린4에서 스크린1로 한번에 돌아갈 수 있게 된다.
+popUntil은 나중에 한번 더 보도록 하자.
+
+이외에도 Named routes, pushReplacementNamed등 여러가지 매소드가 있지만, 원리는 비슷하다고 한다. 나중에 한번 더 확인해보도록 하자.
