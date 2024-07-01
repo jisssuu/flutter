@@ -1,0 +1,86 @@
+chap 20. Bottom Navigation Bar, 화면 하단 네비게이션바 배치 및 setState 사용
+
+Scaffold 위젯에 있는 bottomNavigationBar 속성을 이용하여 화면 하단 네비게이션 바를 배치해보는 것을 알아보자
+많은 앱들이 화면 하단에 네비게이션바가 위치하고 있는 것을 알 수 있다.
+화면 하단에 있기 때문에 한 손가락으로 쉽게 누르면서 조작할 수 있다는 장점이 있다.
+
+1) 클래스에 with SingleTickerProviderStateMixin을 추가하고 Tabcontroller와 tab을 선택했을 때 선택한 인덱스 값을 담을 수 있는 integer 변수 선언
+
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+  
+  late TabController _tabController;
+  int _selectedIndex = 0;
+
+2) initState와 dispose 상태에서 tabController에 addListener를 추가하여 tab 메뉴를 선택했을 때,
+_selectedIndex값을 _tabController.index로 assign하고 steState를 통해 상태 업데이트하기
+
+ @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(
+      () => setState(() => _selectedIndex = _tabController.index));
+    }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.initState();
+  }
+
+3) 나머지 코드 작성
+
+Widget build(BuildContext context) { 
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Test Title"),
+      ),
+     body: _selectedIndex == 0 
+     ? TabContainer(context, Colors.indigo, "Friends Tab")
+     : _selectedIndex == 1 
+          ? TabContainer(context, Colors.amber[600] as Color, "Chats Tab")
+          : TabContainer(context, Colors.blueGrey, "Settings Tab"),
+     bottomNavigationBar: TabBar(
+      labelColor: Colors.blue,
+      controller: _tabController,
+      tabs: [
+        Tab(
+          icon: Icon(
+            _selectedIndex == 0 ? Icons.person : Icons.person_2_outlined
+          ),
+          text: "Friends",
+          
+        ),
+        Tab(
+          icon: Icon(
+            _selectedIndex == 1 ? Icons.chat : Icons.chat_outlined
+          ),
+          text: "Chats",
+        ),
+        Tab(
+          icon: Icon(
+            _selectedIndex == 2 ? Icons.settings : Icons.settings_outlined
+          ),
+          text: "Settings",
+        )
+      ],
+     ),
+    );
+  }
+
+  Widget TabContainer(BuildContext con, Color tabColor, String tabText) {
+    return Container(
+      width: MediaQuery.of(con).size.width,
+      height: MediaQuery.of(con).size.height,
+      color: tabColor,
+      child: Center(
+        child: Text(
+          tabText,
+          style: TextStyle(
+            color: Colors.white
+          ),
+        ),
+      ),
+    ); 
+  }
+}
