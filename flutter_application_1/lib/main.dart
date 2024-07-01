@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,13 +29,31 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-   static String youtubeId = 'sip2qsg1_WI';
-
-    final YoutubePlayerController _con = YoutubePlayerController(
-      initialVideoId: youtubeId,
-      flags: const YoutubePlayerFlags(autoPlay: false),
-    );
   
+  late SharedPreferences _prefs;
+  String _username = "";
+  final TextEditingController _usernameController = TextEditingController();
+
+  @override
+  void initState(){
+    super.initState();
+    _getUsername();
+  }
+
+  _saveUsername() {
+    setState(() {
+      _username = _usernameController.text;
+      _prefs.setString("currentUsername", _username);
+    });
+  }
+
+  _getUsername() async {
+    _prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _username = _prefs.getString("currentUsername") ?? "";
+    });
+  }
+
   @override
   Widget build(BuildContext context) { 
     return Scaffold(
@@ -43,8 +61,24 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text("Test Title"),
       ),
      body: Container(
-      child: YoutubePlayer(
-        controller: _con,
+      child: Column(
+        children: [
+          Text("현재 사용자 이름: $_username"),
+          Container(
+            child: TextField(
+              controller: _usernameController,
+              textAlign: TextAlign.left,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                hintText: 'Input your username',
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () => _saveUsername(),
+            child: Text("저장"),
+          ),
+        ],
       ),
      )
     );
