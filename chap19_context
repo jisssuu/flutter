@@ -1,0 +1,41 @@
+chap 19. 디스크에 간단한 데이터 저장 및 불러오기 - SharedPreferences 사용
+
+간단한 자료를 디스크에 저장할 때 유용하게 사용되며, 방대한 자료는 이 방법을 권장하지 않는다.
+사용자의 정보를 기억한다던지 앱을 사용하고 종료한 후 기존에 설정해두었던 데이터를 불러오는 상황에서 유용하다.
+사용 방법은 간단하며 key,value 구조로 되어 있다.
+
+1. pubspec.yaml에 shared_preferences:버전 을 입력한다. (버전은 생략해도 되는 것 같다.)
+2. SharedPreference를 import 해주고 사용하면 된다. 
+
+code ex) 
+import 'package:shared_preferences/shared_preferences.dart';
+
+late SharedPreferences _prefs;
+  String _username = "";
+  final TextEditingController _usernameController = TextEditingController();
+
+  @override
+  void initState(){
+    super.initState();
+    _getUsername();
+  }
+
+  _saveUsername() {
+    setState(() {
+      _username = _usernameController.text;
+      _prefs.setString("currentUsername", _username);
+    });
+  }
+
+  _getUsername() async {
+    _prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _username = _prefs.getString("currentUsername") ?? "";
+    });
+  }
+
+
+TextButton(
+            onPressed: () => _saveUsername(),
+            child: Text("저장"),
+          ),
