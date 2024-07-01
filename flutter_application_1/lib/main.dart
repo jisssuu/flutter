@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,13 +31,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-   static String youtubeId = 'sip2qsg1_WI';
-
-    final YoutubePlayerController _con = YoutubePlayerController(
-      initialVideoId: youtubeId,
-      flags: const YoutubePlayerFlags(autoPlay: false),
-    );
   
+  static Future loadJson() async {
+    final String response = await rootBundle.loadString("lib/users.json");
+    final data = await json.decode(response);
+    return data['users'];
+  }
+
+  Future userList = loadJson();
+
   @override
   Widget build(BuildContext context) { 
     return Scaffold(
@@ -43,8 +47,25 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text("Test Title"),
       ),
      body: Container(
-      child: YoutubePlayer(
-        controller: _con,
+      child: FutureBuilder(
+        future: userList,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  padding:  const EdgeInsets.all(15),
+                  child: Text("${snapshot.data[index]['id']} : ${snapshot.data[index]['username']}"),
+                );
+              }
+            );
+          } else if (snapshot.hasError) {
+            return const Center(child: Text("Error"),);
+          } else {
+            return const Center(child: CircularProgressIndicator(strokeWidth: 2,),);
+          }
+        },
       ),
      )
     );
