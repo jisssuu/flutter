@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/second.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,24 +29,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  
+   static String youtubeId = 'sip2qsg1_WI';
+
+    final YoutubePlayerController _con = YoutubePlayerController(
+      initialVideoId: youtubeId,
+      flags: const YoutubePlayerFlags(autoPlay: false),
+    );
   
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return Scaffold(
       appBar: AppBar(
         title: const Text("Test Title"),
       ),
-     body: Center(
-      child: GestureDetector(
-        onTap: () => Navigator.push(context, MaterialPageRoute(
-          builder: (_) => SecondView(),
-          )),
-        child: Container(
-          padding: const EdgeInsets.all(15),
-          child: const Text("Get Started"),
-          color: Colors.blue,
-        ),
+     body: Container(
+      child: YoutubePlayer(
+        controller: _con,
       ),
      )
     );
