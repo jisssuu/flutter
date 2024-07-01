@@ -39,3 +39,7 @@ TextButton(
             onPressed: () => _saveUsername(),
             child: Text("저장"),
           ),
+
+
+# 해당 코드에서 변수 앞에 late를 쓰는 경우가 있는데, 이는 non-nullable변수의 초기화를 나중으로 미룰 수 있다.
+그러면 null을 넣고 나중에 값을 주면 되지 않나 생각할 수 있지만, 변수에 null값이 들어가도록 의도한 경우도 있기 때문에, 해당 late를 써 방지를 한다.
