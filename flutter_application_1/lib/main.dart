@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_application_1/second.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,34 +37,16 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text("Test Title"),
       ),
-     body: Container(
-      child: Column(
-        children: [
-          Center(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.amber,
-                textStyle: const TextStyle(
-                  fontSize: 20,
-                )
-              ),
-              onPressed: () => print("Elevated Button") ,
-              child: const Text("Elevated Button"),
-            ),
-          ),
-          Center(
-            child: TextButton(
-               onPressed: () => print("Text Button"),
-               child: const Text("Text Button"),
-            ),
-          ),
-          Center(
-            child: OutlinedButton(
-               onPressed: () => print("Outlined Button"),
-               child: Text("Outlined Button"),
-            ),
-          )
-        ],
+     body: Center(
+      child: GestureDetector(
+        onTap: () => Navigator.push(context, MaterialPageRoute(
+          builder: (_) => SecondView(),
+          )),
+        child: Container(
+          padding: const EdgeInsets.all(15),
+          child: const Text("Get Started"),
+          color: Colors.blue,
+        ),
       ),
      )
     );
