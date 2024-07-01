@@ -8,10 +8,21 @@ Stack 구조를 통하여 구현되며, push와 pop을 이용해 다음 화면�
 Navigator.push 메소드를 이용하여 다음 화면으로 전환할 수 있다.
 Navigator.push(context,MaterialPageRoute(builder:(_) => 다음화면클래스이름()))으로 사용이 가능하다.
 
+code ex)
+ onTap: () => Navigator.push(context, MaterialPageRoute(
+          builder: (_) => SecondView(),
+          )),
+
 2. pop
 
 Navigator.pop 메소드를 이용하여 이전 화면으로 전환할 수 있다.
 Navigator.pop(context)만 사용하면 된다.
+
+code ex)
+leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
 
 3. popUntil
 
