@@ -1,0 +1,23 @@
+chap 21. Refresh Indicator - 아래로 스와이프하여 새로고침
+
+RefreshIndicator를 이용하여 데이터를 갱신하는 방법(아래로 스와이프하여 새로고침)을 할 수 있다.
+FutureBuilder, ListView.builder, SingleChildScrollView를 같이 활용하여 사용할 수 있다.
+
+1. 실제 JSON Data를 준비하고, 데이터 fetch를 위해 dio 패키지를 pubspec.yaml에 추가해준다.
+- pubspec.yaml에 dio 추가한거 스크린샷.
+
+2. dio를 import 해주고, dio 인스턴스와 product를 가져와서 저장할 리스트도 변수로 선언
+- import한 코드와 변수 선언 코드 스크린샷.
+
+3. Product 클래스 작성
+
+4. FutureBuilder를 사용하기 위해 Future<List<Product>> 자료형으로 반환하는 함수 만들어주고, await를 이용하기 위해 async 키워드도 포함
+productList가 <List<Product>>이므로, map<Product>.toList()로 최종 리스트로 만들어야한다.
+getProductData()를 이용하여 초기 데이터 세팅
+또한, refresh를 위해 refreshData를 작성하고, setState() or refresh 함수를 사용하면 된다.
+
+5. RefreshIndicator를 적어주고 onRefresh 속성에 refreshData()함수를 넣는다. 
+또한 SingleChildScrollView를 넣었는데 RefreshIndicator는 기본적으로 스크롤되지 않으면 작동이 되지 않기 때문에, physics 속성에
+AlwaysScrollableScrollPhysics()를 넣어 항상 스크롤이 가능하게 만들어주어야 한다.
+snapshot에 data 유무에 따라 다른 화면을 보여줄 수 있다.
+
