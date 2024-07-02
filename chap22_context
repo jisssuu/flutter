@@ -1,0 +1,13 @@
+chap 22. 상태 관리 - BLoC 패턴
+
+BLoC 패턴은 Provider 패턴보다 다소 복잡하지만, 유지 보수에 있어서는 매우 유용한 방법 중 하나이다.
+
+BLoC는 UI Screen(View), BLOC(Presenter,ViewModel), Repository(Data Handler), Provider(Data Provider)가 존재한다.
+
+UI Screen - initState로 초기 데이터를 먼저 받아오고 추후 stream을 통해 데이터를 갱신해서 가져올 수 있다.
+BLOC - Business Logic를 담은 패키지로, 화면에 적용시킬 수 있도록 stream을 통해 add하여 패턴 반영
+Repository - Data Provider에서 제공 받은 데이터를 필터링 등 변형하여 BLOC에게 데이터 제공
+Provider - 데이터 제공 및 수집, 데이터 처리
+
+
+각각의 코드 스샷 
