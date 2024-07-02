@@ -1,0 +1,19 @@
+chap 23. 상태 관리 - get it 패턴
+
+이번엔 get_it 패키지를 사용해 보자
+
+DI(Dependency Injection) : 의존성 주입 Library로서 InheritedWidget 및 provider를 대체할 수 있으며, 주된 사용으로는 REST API 클라이언트 등을
+포함한 데이터베이스 서비스 객체에 접근해서 사용할 때, View, BLoC등 여러가지 객체에 접근해야 할 떄 사용된다.
+
+get_it은 Dart 언어에서 의존성 주입을 위해 사용하는 도구다.
+
+서비스 로케이터 패턴
+
+서비스나 의존성을 get-it에 수동으로 등록하고 필요할 때 코드의 어느 위치에서나 사용 가능하다.
+인스턴스를 쉽게 등록하고 사용할 수 있다.
+
+1. pubspec.yaml에 get_it, http 패키지 설치
+
+2. 디렉토리 구성
+
+3.~ 코드 리뷰
