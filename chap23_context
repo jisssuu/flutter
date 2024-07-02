@@ -1,0 +1,17 @@
+chap 23. 상태 관리 - Provider 패턴
+
+BLoC 패턴을 진행할 때 잠깐 언급되었던 Provider 패턴에 대해 알아보자
+Provider 패턴은 BLoC 패턴에 비해 더 간단한 방법으로 상태를 관리할 수 있다.
+예제 JSON 파일은 이전 BLoC 패턴을 진행할 때 사용했던 파일 그대로 사용한다.
+
+Provider의 개념
+
+UI(View), Provider , Model 총 3가지로 나누어져있다.
+
+UI 부분에서는 Provider의 메소드를 실행하여 데이터를 수정하거나 데이터를 가져오게 된다.
+그러면 그 Provider는 Model에 명시되어 있는 데이터 변수들을 fromJson 메소드를 이용하여 인스턴스로 리턴하여 Provider에 있는 데이터 변수에 저장하게 된다.
+저장한 후에 NotifyListeners() 메소드를 이용해 변화되었다는 것을 알려주면, UI에서는 Consumer로 변화를 받아와 화면에 적용한다.
+Consumer 대신에 Provider.of를 사용할 수 있지만, 이 둘의 차이점으로는 Provider.of(context)는 위젯 전체가 rebuild가 되지만, Consumer는 일부 부분만 rebuild가 된다.
+물론 Provider.of(context)도 listen:false를 설정하면 rebuild되는 것을 방지할 수 있다.
+
+코드 스샷
