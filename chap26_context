@@ -1,2 +1,12 @@
 chap 26. 상태 관리 - GetX 사용 1: Simple State Manager
 
+GetX는 상태 관리 이외에 코드 간결화 등의 목적으로도 많이 사용된다.
+일단 이번에는 상태 관리, GetBuilder를 활용한 Simple State Manager에 대해 알아보자
+
+1) pubspec.yaml에 get 등록
+
+2) countController.dart파일 작성 ( update()를 해줘야 상태가 업데이트 되므로 꼭 넣어야댐)
+
+3) main import
+
+4) 코드 설명
