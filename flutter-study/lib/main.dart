@@ -1,139 +1,120 @@
-import "package:flutter/material.dart";
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter App',
-      home: HomePage(),
-    );
+    return const MaterialApp(title: 'Flutter App', home: HomePage());
   }
 }
+
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final _url = 'https://jsonplaceholder.typicode.com/albums';
-  int _page = 1;
-  final int _limit = 20;
-  bool _hasNextPage = true;
-  bool _isFirstLoadRunning = false;
-  bool  _isLoadMoreRunning = false;
-  List _albumList = [];
-  late ScrollController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _initLoad();
-    _controller = ScrollController()..addListener(_nextLoad);
-  }
-
-  void _initLoad() async {
-    setState(() {
-      _isFirstLoadRunning = true;
-    });
-    try {
-      final res = await http.get(Uri.parse("$_url?_page=$_page&_limit=$_limit"));
-      setState(() {
-        _albumList = jsonDecode(res.body);
-      });
-    } catch (e) {
-      print(e.toString());
-    }
-
-    setState(() {
-      _isFirstLoadRunning = false;
-    });
-  }
-
-  void _nextLoad() async {
-    if (_hasNextPage && !_isFirstLoadRunning && !_isLoadMoreRunning && _controller.position.extentAfter < 100 ) {
-      setState(() {
-        _isLoadMoreRunning = true;
-      });
-      _page += 1;
-      try {
-        final res = await http.get(Uri.parse("$_url?_page=$_page&_limit=$_limit"));
-        final List fetchedAlbums = json.decode(res.body);
-        if (fetchedAlbums.isNotEmpty) {
-          setState(() {
-            _albumList.addAll(fetchedAlbums);
-          });
-        } else {
-          setState(() {
-            _hasNextPage = false;
-          });
-        }
-      } catch (e) {
-        print(e.toString());
-      }
-
-      setState(() {
-        _isLoadMoreRunning = false;
-      });
-    }
-  }
-
-  @override
-  void dispose() {
-    _controller.removeListener(_nextLoad);
-    super.dispose();
-  }
+  int _current = 0;
+  final CarouselController _controller = CarouselController();
+  List imageList = [
+    "https://cdn.pixabay.com/photo/2014/04/14/20/11/pink-324175_1280.jpg",
+    "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_1280.jpg",
+    "https://cdn.pixabay.com/photo/2012/03/01/00/55/flowers-19830_1280.jpg",
+    "https://cdn.pixabay.com/photo/2015/06/19/20/13/sunset-815270_1280.jpg",
+    "https://cdn.pixabay.com/photo/2016/01/08/05/24/sunflower-1127174_1280.jpg",
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ListView Pagination'),
+        title: const Text('Carousel Slide'),
       ),
-      body: _isFirstLoadRunning? const Center(
-        child: CircularProgressIndicator(),
-      ) : Column(
+      body: Column(
         children: [
-          Expanded(
-            child: ListView.builder(
-                controller:  _controller,
-                itemCount:  _albumList.length,
-                itemBuilder: (context, index) => Card(
-                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                  child: ListTile(
-                    title: Text(_albumList[index]['id'].toString()),
-                    subtitle: Text(_albumList[index]['title']),
+          SizedBox(
+            height: 300,
+            child: Stack(
+              children: [
+                sliderWidget(),
+                sliderIndicator(),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(20),
+            child: const Text("Welcome to the carousel slide app",
+                style: TextStyle(fontSize: 18)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget sliderWidget() {
+    return CarouselSlider(
+      carouselController: _controller,
+      items: imageList.map(
+        (imgLink) {
+          return Builder(
+            builder: (context) {
+              return SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Image(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(
+                    imgLink,
                   ),
                 ),
-              ), 
-          ),
-          if (_isLoadMoreRunning == true) 
-            Container(
-              padding: EdgeInsets.all(30),
-              child: const Center(
-                child: CircularProgressIndicator(),
+              );
+            },
+          );
+        },
+      ).toList(),
+      options: CarouselOptions(
+        height: 300,
+        viewportFraction: 1.0,
+        autoPlay: true,
+        autoPlayInterval: const Duration(seconds: 4),
+        onPageChanged: (index, reason) {
+          setState(() {
+            _current = index;
+          });
+        },
+      ),
+    );
+  }
+
+  Widget sliderIndicator() {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: imageList.asMap().entries.map((entry) {
+          return GestureDetector(
+            onTap: () => _controller.animateToPage(entry.key),
+            child: Container(
+              width: 12,
+              height: 12,
+              margin:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color:
+                    Colors.white.withOpacity(_current == entry.key ? 0.9 : 0.4),
               ),
             ),
-          if (_hasNextPage == false)
-            Container(
-              padding: const EdgeInsets.all(20),
-              color: Colors.blue,
-              child: Center(
-                child: Text("No more data to be fetched", style: TextStyle(color: Colors.white),
-              ),
-            )
-            )
-        ],
-      )
+          );
+        }).toList(),
+      ),
     );
   }
 }
