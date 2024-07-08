@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/foundation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,9 +9,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Flutter App',
-      home: MainPage(),
+      home: const MainPage(),
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
+      ),
     );
   }
 }
@@ -27,63 +28,83 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-   final List tabUrlList = [
-    "https://flutter.dev/multi-platform/mobile",
-    "https://flutter.dev/multi-platform/web",
-    "https://flutter.dev/multi-platform/desktop",
+  List<String> friendList = [
+    "Andrew",
+    "Brian",
+    "Catherine",
+    "Wilson",
+    "Raul",
+    "Daniel",
+    "John",
   ];
-
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.black87,
-          centerTitle: true,
-          title: const Text("WebView"),
-          bottom: const TabBar(
-            indicator: UnderlineTabIndicator(
-              borderSide: BorderSide(width: 5, color: Colors.blue),
-            ),
-            labelColor: Colors.white,
-            tabs: [
-              Tab(icon: Icon(Icons.phone_iphone)),
-              Tab(icon: Icon(Icons.web)),
-              Tab(icon: Icon(Icons.desktop_mac)),
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Material 3 Design"),
+        centerTitle: true,
+      ),
+      body: ListView.builder(
+          itemCount: friendList.length,
+          itemBuilder: (context, index) {
+            return cardContainer(name: friendList[index], number: index + 1);
+          }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showFloatingDialog();
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+
+  Widget cardContainer({String name = "", int number = 0}) {
+    return Card(
+      margin: const EdgeInsets.all(10),
+      child: ListTile(
+        title: Container(
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.all(12),
+          child: Text("$number. $name", style: const TextStyle(fontSize: 20)),
         ),
-        body: TabBarView(
+        subtitle: Row(
           children: [
-            InAppWebView(
-              initialUrlRequest: URLRequest(
-                url: Uri.parse(tabUrlList[0]),
-              ),
-              gestureRecognizers: Set()
-                ..add(Factory<VerticalDragGestureRecognizer>(
-                    () => VerticalDragGestureRecognizer())),
+            TextButton(
+              onPressed: () {},
+              child: const Text("Details"),
             ),
-            InAppWebView(
-              initialUrlRequest: URLRequest(
-                url: Uri.parse(tabUrlList[1]),
-              ),
-              gestureRecognizers: Set()
-                ..add(Factory<VerticalDragGestureRecognizer>(
-                    () => VerticalDragGestureRecognizer())),
-            ),
-            InAppWebView(
-              initialUrlRequest: URLRequest(
-                url: Uri.parse(tabUrlList[2]),
-              ),
-              gestureRecognizers: Set()
-                ..add(Factory<VerticalDragGestureRecognizer>(
-                    () => VerticalDragGestureRecognizer())),
+            FilledButton.tonal(
+              onPressed: () {},
+              child: const Text("Follow"),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  void showFloatingDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) {
+        return AlertDialog(
+          content: const Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Center(child: Text("Do you want to add a friend?")),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("No"),
+            ),
+            FilledButton(onPressed: () {}, child: const Text("Yes")),
+          ],
+        );
+      },
     );
   }
 }
