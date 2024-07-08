@@ -48,6 +48,7 @@ dependencies:
   photo_view:
   dio:
   image_gallery_saver:
+  flutter_inappwebview: ^5.7.2+3
 
   
 dev_dependencies:

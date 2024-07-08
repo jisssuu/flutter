@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/webviewPage.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/foundation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,18 +27,61 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+   final List tabUrlList = [
+    "https://flutter.dev/multi-platform/mobile",
+    "https://flutter.dev/multi-platform/web",
+    "https://flutter.dev/multi-platform/desktop",
+  ];
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const WebViewPage()));
-            },
-            child: const Text("웹뷰 호출"),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.black87,
+          centerTitle: true,
+          title: const Text("WebView"),
+          bottom: const TabBar(
+            indicator: UnderlineTabIndicator(
+              borderSide: BorderSide(width: 5, color: Colors.blue),
+            ),
+            labelColor: Colors.white,
+            tabs: [
+              Tab(icon: Icon(Icons.phone_iphone)),
+              Tab(icon: Icon(Icons.web)),
+              Tab(icon: Icon(Icons.desktop_mac)),
+            ],
           ),
+        ),
+        body: TabBarView(
+          children: [
+            InAppWebView(
+              initialUrlRequest: URLRequest(
+                url: Uri.parse(tabUrlList[0]),
+              ),
+              gestureRecognizers: Set()
+                ..add(Factory<VerticalDragGestureRecognizer>(
+                    () => VerticalDragGestureRecognizer())),
+            ),
+            InAppWebView(
+              initialUrlRequest: URLRequest(
+                url: Uri.parse(tabUrlList[1]),
+              ),
+              gestureRecognizers: Set()
+                ..add(Factory<VerticalDragGestureRecognizer>(
+                    () => VerticalDragGestureRecognizer())),
+            ),
+            InAppWebView(
+              initialUrlRequest: URLRequest(
+                url: Uri.parse(tabUrlList[2]),
+              ),
+              gestureRecognizers: Set()
+                ..add(Factory<VerticalDragGestureRecognizer>(
+                    () => VerticalDragGestureRecognizer())),
+            ),
+          ],
         ),
       ),
     );
