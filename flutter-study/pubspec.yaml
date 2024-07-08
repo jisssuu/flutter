@@ -45,6 +45,9 @@ dependencies:
   webview_flutter_android:
   webview_flutter_wkwebview:
   carousel_slider:
+  photo_view:
+  dio:
+  image_gallery_saver:
   
 dev_dependencies:
   flutter_test:

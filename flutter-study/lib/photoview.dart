@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
+import 'dart:typed_data';
+import 'package:dio/dio.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 class PhotoViewPage extends StatefulWidget {
   List<String> imagePaths;
@@ -19,7 +22,7 @@ class _PhotoViewPageState extends State<PhotoViewPage> {
     return Scaffold(
       body: PageView.builder(
           controller: _controller,
-          itemCount: 3,
+          itemCount: widget.imagePaths.length,
           itemBuilder: (context, index) {
             return Stack(
               children: [
