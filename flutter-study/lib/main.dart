@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_keyboard/flutter_secure_keyboard.dart';
+import 'dart:ui';
+
+import 'package:flutter/rendering.dart';
+import 'package:flutter_image_saver/flutter_image_saver.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,96 +28,62 @@ class TestView extends StatefulWidget {
 }
 
 class _TestViewState extends State<TestView> {
-  final _secureKeyboardController = SecureKeyboardController();
+  final repaintBoundary = GlobalKey();
 
-  final _passwordEditor = TextEditingController();
-  final _passwordTextFieldFocusNode = FocusNode();
+  void save() async {
+    final boundary = repaintBoundary.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+    final image = await boundary.toImage(pixelRatio: 2);
+    final byteData = await image.toByteData(format: ImageByteFormat.png);
+    final path = await saveImage(byteData!.buffer.asUint8List(),'flutter.png' );
+    final message = path.isEmpty ? "Saved" : "Saved to $path";
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
 
-  final _pinCodeEditor = TextEditingController();
-  final _pinCodeTextFieldFocusNode = FocusNode();
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    return WithSecureKeyboard(
-      controller: _secureKeyboardController, 
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Secure Keyboard Test"),
-          centerTitle: true,
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Test'),
+        centerTitle: true,
+      ),
+      floatingActionButton:  FloatingActionButton(
+        onPressed: save,
+        child: const Icon(Icons.download),
+      ),
+      body: RepaintBoundary(
+        key: repaintBoundary,
+        child: SingleChildScrollView(
+          child: Container(
+            color: Colors.white,
             child: Column(
               children: [
-                _buildPasswordTextField(),
-                const SizedBox(height: 15.0,),
-                _buildPincodeTextField(),
-              ],
+                Text("제목 1", style: TextStyle(fontSize: 24),),
+                Text('제목1-1'),
+                Text('제목1-2'),
+                Container(
+        
+                  width: 200,
+                  height: 200,
+                  color: Colors.green,
+                ),Text("제목 2", style: TextStyle(fontSize: 24),),
+                Text('제목2-1'),
+                Text('제목2-2'),
+                Container(
+        
+                  width: 200,
+                  height: 200,
+                  color: Colors.purple,
+                ),
+        
+              ]
             ),
           ),
         ),
-      )
-      );
-  }
-
-  Widget _buildPincodeTextField() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text("Password"),
-        TextFormField(
-          controller: _passwordEditor,
-          focusNode: _passwordTextFieldFocusNode,
-          enableInteractiveSelection: false,
-          obscureText: true,
-          onTap: () {
-            _secureKeyboardController.show(
-              type: SecureKeyboardType.ALPHA_NUMERIC,
-              focusNode: _passwordTextFieldFocusNode,
-              initText: _passwordEditor.text,
-              hintText: "password",
-              onCharCodesChanged: (List<int> charCodes) {
-                _passwordEditor.text = String.fromCharCodes(charCodes);
-              },
-            );
-          },
-        )
-      ],
+      ),
     );
   }
 
-  Widget _buildPasswordTextField() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text("PinCode"),
-        TextFormField(
-          controller: _pinCodeEditor,
-          focusNode: _pinCodeTextFieldFocusNode,
-          enableInteractiveSelection: false,
-          obscureText: true,
-          onTap: () {
-            _secureKeyboardController.show(
-              type: SecureKeyboardType.NUMERIC,
-              focusNode: _pinCodeTextFieldFocusNode,
-              initText: _pinCodeEditor.text,
-              hintText: "pinCode",
-              onDoneKeyPressed: (List<int> charCodes) {
-                _pinCodeEditor.text = String.fromCharCodes(charCodes);
-              },
-            );
-          },
-        )
-      ],
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _secureKeyboardController.dispose();
-    _passwordEditor.dispose();
-    _pinCodeEditor.dispose();
-  }
+  
 }
