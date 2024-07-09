@@ -51,6 +51,7 @@ dependencies:
   flutter_inappwebview: ^5.7.2+3
   flutter_secure_keyboard:
   flutter_image_saver:
+  debounce_throttle:
   
 dev_dependencies:
   flutter_test:
